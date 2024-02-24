@@ -1,0 +1,108 @@
+<%layout("/layouts/boilerplate") %>
+<br />
+<br />
+<h2>Create a New Listing</h2>
+<br />
+<br />
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <form action="/listings" method="post" class="needs-validation" novalidate>
+      <div>
+        <label for="description" class="form-label">title</label>
+
+        <input
+          type="text"
+          name="listing[title]"
+          id="title"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">title Looks good!!!</div>
+        <div class="invalid-feedback">Enter the Title!</div>
+      </div>
+
+      <br />
+      <br />
+      <div>
+        <label for="description" class="form-label">description</label>
+        <textarea
+          name="listing[description]"
+          cols="20"
+          rows="5"
+          placeholder="enter description"
+          id="description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="valid-feedback">description Looks good!!!</div>
+        <div class="invalid-feedback">Enter the description!</div>
+      </div>
+
+      <br />
+      <br />
+      <div>
+        <label for="image" class="form-label">image url</label>
+
+        <input
+          type="text"
+          name="listing[image]"
+          id="image"
+          class="form-control"
+        />
+      </div>
+      <br />
+      <br />
+      <div class="row">
+        <div class="col-md-4">
+          <label for="price" class="form-label">price</label>
+
+          <input
+            type="number"
+            name="listing[price]"
+            id="price"
+            class="form-control"
+            required
+          />
+
+          <div class="invalid-feedback">Price should be Valid!!</div>
+        </div>
+        <br />
+        <br />
+
+        <br />
+        <br />
+        <div class="col-md-8">
+          <label for="country" class="form-label">Country</label>
+
+          <input
+            type="text"
+            name="listing[country]"
+            id="country"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Country name should be Valid!!</div>
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="location" class="form-label">location</label>
+
+        <input
+          type="text"
+          name="listing[location]"
+          id="location"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Location should be Valid!!</div>
+      </div>
+      <br />
+      <br />
+      <button class="btn btn-dark add-btn">Add</button>
+      <br />
+      <br />
+    </form>
+  </div>
+</div>
