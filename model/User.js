@@ -8,6 +8,10 @@ const userSchema = new Schema({
     type: "string",
     required: true,
   },
+  image: {
+    url: String,
+    filename: String,
+  },
 });
 
 userSchema.plugin(passportLocalMongoose);

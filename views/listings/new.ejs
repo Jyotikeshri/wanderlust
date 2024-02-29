@@ -7,7 +7,13 @@
 
 <div class="row">
   <div class="col-8 offset-2">
-    <form action="/listings" method="post" class="needs-validation" novalidate>
+    <form
+      action="/listings"
+      method="post"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
       <div>
         <label for="description" class="form-label">title</label>
 
@@ -42,10 +48,10 @@
       <br />
       <br />
       <div>
-        <label for="image" class="form-label">image url</label>
+        <label for="image" class="form-label">image </label>
 
         <input
-          type="text"
+          type="file"
           name="listing[image]"
           id="image"
           class="form-control"
@@ -53,6 +59,7 @@
       </div>
       <br />
       <br />
+      <%- include("../includes/category.ejs") %>
       <div class="row">
         <div class="col-md-4">
           <label for="price" class="form-label">price</label>
@@ -106,3 +113,18 @@
     </form>
   </div>
 </div>
+<script>
+  const dropdownItems = document.querySelectorAll(
+    '.dropdown-item input[type="checkbox"]'
+  );
+  const selectedValuesInput = document.getElementById("selectedValues");
+
+  dropdownItems.forEach((item) => {
+    item.addEventListener("change", function () {
+      const selectedValues = Array.from(dropdownItems)
+        .filter((item) => item.checked)
+        .map((item) => item.value);
+      selectedValuesInput.value = selectedValues.join(", ");
+    });
+  });
+</script>

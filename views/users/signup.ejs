@@ -7,7 +7,13 @@
   <br />
   <br />
   <div class="col-8 offset-2">
-    <form action="/signup" method="post" class="needs-validation" novalidate>
+    <form
+      action="/signup"
+      method="post"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
       <div>
         <label for="username" class="form-label">Username</label>
 
@@ -22,6 +28,12 @@
         <div class="invalid-feedback">Enter the Username!</div>
       </div>
 
+      <br />
+      <br />
+      <div>
+        <label for="pfp" class="form-label">Profile Photo </label>
+        <input type="file" name="pfp" id="pfp" class="form-control" />
+      </div>
       <br />
       <br />
 

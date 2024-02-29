@@ -4,7 +4,7 @@ const ExpressError = require("../util/expressError.js");
 module.exports.validateListing = async (req, res, next) => {
   if (req.method === "POST" || req.method === "PATCH") {
     console.log("patch request");
-    const { error } = listingSchema.validate(req.body.listing).error;
+    const { error } = listingSchema.validate(req.body.listing);
     if (error) {
       let errMsg = error.details.map((el) => el.message).join(",");
       throw new ExpressError(400, errMsg);

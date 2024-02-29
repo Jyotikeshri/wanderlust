@@ -1,16 +1,141 @@
 <% layout("/layouts/boilerplate.ejs") %>
+<style>
+  #filters {
+    margin-top: 1rem;
+    display: flex;
+    margin-bottom: 1rem;
+    flex-direction: row;
+
+    overflow-x: scroll;
+  }
+  .filter {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+  }
+</style>
 <body>
-  <h2>All Listings</h2>
-  <!-- <form method="get" action="/listings/new">
-    <button>Create new</button>
-  </form> -->
+  <div id="filters">
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-umbrella-beach"></i>
+      </div>
+      <p><a href="/filter/Beach">Beach</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-bed"></i>
+      </div>
+      <p><a href="/filter/Rooms">Rooms</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-wine-bottle"></i>
+      </div>
+      <p><a href="/filter/Vineyards">Vineyards</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-brands fa-think-peaks"></i>
+      </div>
+      <p><a href="/filter/Top of the World">Top of the World</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-water-ladder"></i>
+      </div>
+      <p><a href="/filter/Amazing pools">Amazing pools</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-tree-city"></i>
+      </div>
+      <p><a href="/filter/Tree City">Tree City</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-water"></i>
+      </div>
+      <p><a href="/filter/Lake">Lake</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-caret-up"></i>
+      </div>
+      <p><a href="/filter/Caves">Caves</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <p><a href="/filter/New">New</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-person-skiing"></i>
+      </div>
+      <p><a href="/filter/Skiing">Skiing</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-tractor"></i>
+      </div>
+      <p><a href="/filter/Farms">Farms</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-city"></i>
+      </div>
+      <p><a href="/filter/Iconic Cities">Iconic Cities</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-campground"></i>
+      </div>
+      <p><a href="/filter/Camping">Camping</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-fire"></i>
+      </div>
+      <p><a href="/filter/Trending">Trending</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-regular fa-snowflake"></i>
+      </div>
+      <p><a href="/filter/Arctic">Arctic</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-solid fa-mug-saucer"></i>
+      </div>
+      <p><a href="/filter/Bed and Breakfast">Bed and Breakfast</a></p>
+    </div>
+    <div class="filter">
+      <div class="img">
+        <i class="fa-brands fa-fort-awesome"></i>
+      </div>
+      <p><a href="/filter/Castles">Castles</a></p>
+    </div>
+  </div>
 
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-s-1">
     <%for (let listing of allListings){%>
     <a href="/listings/<%=listing._id %>" class="listing-link">
       <div class="card">
         <img
-          src="<%=listing.image %>"
+          src="<%=listing.image.url %>"
           class="card-img-top"
           alt="..."
           style="height: 18rem"

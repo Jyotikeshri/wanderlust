@@ -1,6 +1,9 @@
 const express = require("express");
 const wrapAsync = require("../util/wrapAsync.js");
 const app = express();
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -13,26 +16,28 @@ const {
   editListing,
   updateListing,
   deleteListing,
+  filterListings,
 } = require("../controllers/listings/listing.js");
 const { validateListing } = require("../middlewares/validation.js");
 
 app.set("view engine", "ejs");
 
-router.get("/", wrapAsync(getListings));
+router.route("/").get(wrapAsync(getListings)).post(
+  isLoggedIn,
+
+  upload.single("listing[image]"),
+  wrapAsync(createNew)
+);
+router.get("/filter/:category", wrapAsync(filterListings));
 
 router.get("/new", isLoggedIn, newListing);
-
-router.get("/:id", wrapAsync(getListingById));
-
-router.post("/", isLoggedIn, validateListing, wrapAsync(createNew));
-
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(editListing));
 
-router.patch(
-  "/:id",
+router.route("/:id").get(wrapAsync(getListingById)).patch(
   isLoggedIn,
   isOwner,
-  validateListing,
+  upload.single("listing[image]"),
+
   wrapAsync(updateListing)
 );
 

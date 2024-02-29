@@ -20,10 +20,12 @@
     >
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/listings">Home</a>
-        <a class="nav-link" href="/listings/new">Create New</a>
       </div>
+      <a class="nav-link ms-auto me-5" href="/listings/new"
+        ><b>Airbnb your home</b></a
+      >
       <div class="navbar-nav me-5">
-        <div class="dropdown me-5">
+        <div class="dropdown me-5 mt-1">
           <button
             class="btn btn-outline-secondary dropdown-toggle"
             type="button"
@@ -55,6 +57,14 @@
             <%}%>
           </ul>
         </div>
+        <% if (currUser && LoggedInUser) { %>
+        <div class="navbar-nav user-nav">
+          <div class="nav-link">
+            <img class="avatar" src="<%= LoggedInUser.image.url %>" />
+          </div>
+          <h6 class="mt-4 ms-1"><%=LoggedInUser.username %></h6>
+        </div>
+        <% } %>
       </div>
     </div>
   </div>

@@ -2,8 +2,25 @@ const Listing = require("../../model/listing");
 
 module.exports.getListings = async (req, res, next) => {
   const allListings = await Listing.find({});
+
   console.log(req.user);
   res.render("listings/index", { allListings });
+};
+
+module.exports.filterListings = async (req, res, next) => {
+  const category = req.params.category;
+  console.log("category", category);
+  let allListings;
+  try {
+    if (category) {
+      allListings = await Listing.find({ categories: { $in: [category] } });
+      console.log(allListings);
+
+      // res.render("listings/index", { allListings });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 module.exports.newListing = (req, res, next) => {
@@ -24,11 +41,32 @@ module.exports.getListingById = async (req, res, next) => {
 };
 
 module.exports.createNew = async (req, res, next) => {
+  if (typeof req.file === "undefined") {
+    req.flash("error", "Add The listing image ");
+    return res.redirect("/listings");
+  }
+
+  const url = req.file.path;
+  const filename = req.file.filename;
+
   const listing = req.body.listing;
   const newListing = new Listing(listing);
   newListing.owner = req.user._id;
+  newListing.image = { url, filename };
+  console.log(req.body.categories);
+
+  //Check if req.body.category exists before splitting
+  if (req.body.categories && req.body.categories.trim() !== "") {
+    const categoriesArray = req.body.categories
+      .split(",")
+      .map((category) => category.trim());
+    newListing.categories = categoriesArray;
+    console.log("this is category", categoriesArray);
+  }
+
   newListing.save().then((result) => {
     console.log("Data saved");
+    console.log(result);
     req.flash("success", "Listing saved successfully");
     res.redirect("/listings");
   });
@@ -42,21 +80,30 @@ module.exports.editListing = async (req, res, next) => {
     req.flash("error", "Listing you requested does not exist");
     res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { id, list });
+  let originalImage = list.image.url;
+  originalImage = originalImage.replace("/upload", "/upload/h_300,w_250");
+  res.render("listings/edit.ejs", { id, list, originalImage });
 };
 
 module.exports.updateListing = async (req, res, next) => {
   const id = req.params.id;
 
   console.log(req.body.listing);
-  const listing = req.body.listing;
-  await Listing.findByIdAndUpdate(
+  // console.log(req.file);
+
+  const listing = await Listing.findByIdAndUpdate(
     id,
     {
       ...req.body.listing,
     },
     { new: true }
   );
+  if (typeof req.file !== "undefined") {
+    const url = req.file.path;
+    const filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
   req.flash("success", "Listing Updated successfully");
   res.redirect(`/listings/${id}`);
 };

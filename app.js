@@ -1,10 +1,13 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const { main } = require("./db/connectDB.js");
 
 const ejsMate = require("ejs-mate");
 
-const mongoose = require("mongoose");
 const port = 3000;
 const path = require("path");
 const methodOverride = require("method-override");
@@ -29,12 +32,13 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+app.use(flash());
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session(sessionOptions));
-app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
