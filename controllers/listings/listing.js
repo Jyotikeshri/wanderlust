@@ -6,6 +6,22 @@ module.exports.getListings = async (req, res, next) => {
   console.log(req.user);
   res.render("listings/index", { allListings });
 };
+module.exports.searchResult = async (req, res) => {
+  let { search } = req.body;
+  const allListings = await Listing.find({
+    $or: [
+      { title: { $regex: search } },
+      { catagory: { $regex: search } },
+      { country: { $regex: search, $options: "i" } },
+      { location: { $regex: search } },
+    ],
+  });
+  let btnValue = search;
+  console.log(search);
+  console.log(allListings);
+  // res.send("chetha bol ne! pet kha ja rhe hm");
+  res.render("listings/index.ejs", { allListings, btnValue });
+};
 
 module.exports.filterListings = async (req, res, next) => {
   const category = req.params.category;
@@ -16,7 +32,9 @@ module.exports.filterListings = async (req, res, next) => {
       allListings = await Listing.find({ categories: { $in: [category] } });
       console.log(allListings);
 
-      // res.render("listings/index", { allListings });
+      res.render("listings/index", { allListings }); // Assuming you want to render a view with the filtered listings
+    } else {
+      next(); // Call next middleware if no category provided
     }
   } catch (err) {
     res.status(500).json({ message: err.message });

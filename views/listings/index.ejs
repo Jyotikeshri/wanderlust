@@ -8,6 +8,10 @@
 
     overflow-x: scroll;
   }
+  #filters::-webkit-scrollbar-track {
+    background-color: red;
+  }
+
   .filter {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -20,8 +24,35 @@
     opacity: 1;
     cursor: pointer;
   }
+  .filter a {
+    text-decoration: none;
+    color: black;
+  }
+  .tax-info {
+    display: none;
+  }
   .filter p {
     font-size: 0.8rem;
+  }
+  .tax-switch {
+    margin-left: 70%; /* Center horizontally */
+    position: absolute;
+    margin-top: -150px;
+    border-radius: 2rem;
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    height: 3.5rem;
+    display: flex;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .tax-switch {
+      margin-left: 10px; /* Adjust as needed for your layout */
+      width: auto; /* Allow content to dictate width */
+    }
   }
 </style>
 <body>
@@ -30,103 +61,117 @@
       <div class="img">
         <i class="fa-solid fa-umbrella-beach"></i>
       </div>
-      <p><a href="/filter/Beach">Beach</a></p>
+      <p><a href="/listings/filter/Beach">Beach</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-bed"></i>
       </div>
-      <p><a href="/filter/Rooms">Rooms</a></p>
+      <p><a href="/listings/filter/Rooms">Rooms</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-wine-bottle"></i>
       </div>
-      <p><a href="/filter/Vineyards">Vineyards</a></p>
+      <p><a href="/listings/filter/Vineyards">Vineyards</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-brands fa-think-peaks"></i>
       </div>
-      <p><a href="/filter/Top of the World">Top of the World</a></p>
+      <p><a href="/listings/filter/Top of the World">Top of the World</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-water-ladder"></i>
       </div>
-      <p><a href="/filter/Amazing pools">Amazing pools</a></p>
+      <p><a href="/listings/filter/Amazing pools">Amazing pools</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-tree-city"></i>
       </div>
-      <p><a href="/filter/Tree City">Tree City</a></p>
+      <p><a href="/listings/filter/Tree City">Tree City</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-water"></i>
       </div>
-      <p><a href="/filter/Lake">Lake</a></p>
+      <p><a href="/listings/filter/Lake">Lake</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-caret-up"></i>
       </div>
-      <p><a href="/filter/Caves">Caves</a></p>
+      <p><a href="/listings/filter/Caves">Caves</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-key"></i>
       </div>
-      <p><a href="/filter/New">New</a></p>
+      <p><a href="/listings/filter/New">New</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-person-skiing"></i>
       </div>
-      <p><a href="/filter/Skiing">Skiing</a></p>
+      <p><a href="/listings/filter/Skiing">Skiing</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-tractor"></i>
       </div>
-      <p><a href="/filter/Farms">Farms</a></p>
+      <p><a href="/listings/filter/Farms">Farms</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-city"></i>
       </div>
-      <p><a href="/filter/Iconic Cities">Iconic Cities</a></p>
+      <p><a href="/listings/filter/Iconic Cities">Iconic Cities</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-campground"></i>
       </div>
-      <p><a href="/filter/Camping">Camping</a></p>
+      <p><a href="/listings/filter/Camping">Camping</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-fire"></i>
       </div>
-      <p><a href="/filter/Trending">Trending</a></p>
+      <p><a href="/listings/filter/Trending">Trending</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-regular fa-snowflake"></i>
       </div>
-      <p><a href="/filter/Arctic">Arctic</a></p>
+      <p><a href="/listings/filter/Arctic">Arctic</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-solid fa-mug-saucer"></i>
       </div>
-      <p><a href="/filter/Bed and Breakfast">Bed and Breakfast</a></p>
+      <p><a href="/listings/filter/Bed and Breakfast">Bed and Breakfast</a></p>
     </div>
     <div class="filter">
       <div class="img">
         <i class="fa-brands fa-fort-awesome"></i>
       </div>
-      <p><a href="/filter/Castles">Castles</a></p>
+      <p><a href="/listings/filter/Castles">Castles</a></p>
+    </div>
+  </div>
+
+  <div class="tax-switch">
+    <div class="form-check-reverse form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Price after tax</label
+      >
     </div>
   </div>
 
@@ -148,6 +193,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <b> &#8377; <%=listing.price.toLocaleString("en-IN") %> /night </b>
+            <span class="tax-info">&nbsp; &nbsp; + 18% GST</span>
           </li>
           <li class="list-group-item"><%=listing.location %></li>
           <li class="list-group-item"><%=listing.country %></li>
@@ -157,3 +203,37 @@
     <%}%>
   </div>
 </body>
+<script>
+  const taxInfo = document.getElementsByClassName("tax-info"); // Assuming you want the first element
+  const taxSwitch = document.getElementsByClassName("tax-switch")[0]; // Assuming you want the first element
+
+  taxSwitch.addEventListener("click", () => {
+    console.log("clicked");
+    // Toggle display property
+    for (let info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+  const scrollContainer = document.querySelector(".scroll-container");
+  const scrollContent = document.querySelector(".scroll-content");
+  const scrollLeftBtn = document.getElementById("scroll-left");
+  const scrollRightBtn = document.getElementById("scroll-right");
+
+  scrollLeftBtn.addEventListener("click", () => {
+    scrollContainer.scrollBy({
+      left: -100,
+      behavior: "smooth",
+    });
+  });
+
+  scrollRightBtn.addEventListener("click", () => {
+    scrollContainer.scrollBy({
+      left: 100,
+      behavior: "smooth",
+    });
+  });
+</script>

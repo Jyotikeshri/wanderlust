@@ -18,6 +18,7 @@ const {
   deleteListing,
   filterListings,
 } = require("../controllers/listings/listing.js");
+const listingController = require("../controllers/listings/listing.js");
 const { validateListing } = require("../middlewares/validation.js");
 
 app.set("view engine", "ejs");
@@ -28,7 +29,8 @@ router.route("/").get(wrapAsync(getListings)).post(
   upload.single("listing[image]"),
   wrapAsync(createNew)
 );
-router.get("/filter/:category", wrapAsync(filterListings));
+router.get("/filter/:category", wrapAsync(listingController.filterListings));
+router.post("/search", wrapAsync(listingController.searchResult));
 
 router.get("/new", isLoggedIn, newListing);
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(editListing));

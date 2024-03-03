@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGO_URL = process.env.MONGO_ATLAS_URL;
 
 module.exports.main = async () => {
   const connection = await mongoose.connect(MONGO_URL);

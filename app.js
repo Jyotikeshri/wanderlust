@@ -14,6 +14,7 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
+const MongoStore = require("connect-mongo");
 const LocalStrategy = require("passport-local");
 const User = require("./model/User.js");
 const {
@@ -22,8 +23,18 @@ const {
 
   allErrorHandle,
 } = require("./middlewares/error.middleware.js");
+
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_ATLAS_URL,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
 const sessionOptions = {
-  secret: "wanderlust_secret",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

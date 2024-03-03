@@ -21,6 +21,24 @@
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/listings">Home</a>
       </div>
+
+      <div class="navbar-nav ms-auto search">
+        <form
+          class="d-flex"
+          role="search"
+          action="/listings/search"
+          method="post"
+        >
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            name="search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
       <a class="nav-link ms-auto me-5" href="/listings/new"
         ><b>Airbnb your home</b></a
       >
