@@ -74,7 +74,7 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ message: `Server is running on http://localhost:${port}` });
+  res.redirect("/listings");
 });
 
 app.use("/listings", listingRoutes);
